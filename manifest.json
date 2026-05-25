@@ -1,0 +1,22 @@
+{
+  "name": "AMEDI TV",
+  "short_name": "AMEDI TV",
+  "description": "Amed's premier Kurdish entertainment and media platform, featuring live TV and multi-channel streaming.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0a1e",
+  "theme_color": "#0f0a1e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/QxGcmFd3/file-0000000004b47246b78b315ac6479e1d.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/QxGcmFd3/file-0000000004b47246b78b315ac6479e1d.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

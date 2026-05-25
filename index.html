@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AMEDI TV</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f0a1e" />
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/QxGcmFd3/file-0000000004b47246b78b315ac6479e1d.png" />
+    <script>
+      // Early suppression of benign WebSocket and unhandled HMR connection rejections
+      window.addEventListener('unhandledrejection', function(event) {
+        var reason = event.reason;
+        var reasonStr = reason ? String(reason) : '';
+        var messageStr = (reason && reason.message) ? String(reason.message) : '';
+        
+        var isWebsocketError = 
+          reasonStr.indexOf('WebSocket') !== -1 || 
+          reasonStr.indexOf('websocket') !== -1 ||
+          messageStr.indexOf('WebSocket') !== -1 ||
+          messageStr.indexOf('websocket') !== -1 ||
+          reasonStr.indexOf('failed to connect') !== -1 ||
+          messageStr.indexOf('failed to connect') !== -1 ||
+          reasonStr.indexOf('closed without opened') !== -1 ||
+          messageStr.indexOf('closed without opened') !== -1;
+
+        if (isWebsocketError) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      });
+
+      window.addEventListener('error', function(event) {
+        var messageStr = event.message ? String(event.message) : '';
+        var errorStr = event.error ? String(event.error) : '';
+        var isWebsocketError = 
+          messageStr.indexOf('WebSocket') !== -1 || 
+          messageStr.indexOf('websocket') !== -1 ||
+          errorStr.indexOf('WebSocket') !== -1 ||
+          errorStr.indexOf('websocket') !== -1 ||
+          messageStr.indexOf('closed without opened') !== -1 ||
+          errorStr.indexOf('closed without opened') !== -1;
+
+        if (isWebsocketError) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, true);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(reg) {
+              console.log('ServiceWorker registration successful with scope: ', reg.scope);
+            })
+            .catch(function(err) {
+              console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
+
